@@ -13,12 +13,11 @@ __meta__ = {
 "_edit_group_": true
 }
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-rotation = 0.785398
-shape = SubResource( 1 )
-
 [node name="Sprite" type="Sprite" parent="."]
 self_modulate = Color( 0.4, 0.329412, 0.811765, 0.341176 )
 rotation = 0.785398
 texture = ExtResource( 1 )
-[connection signal="area_entered" from="." to="." method="_on_PlayerBullet_area_entered"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+rotation = 0.785398
+shape = SubResource( 1 )

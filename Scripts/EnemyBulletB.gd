@@ -1,6 +1,6 @@
 extends Area2D
 
-export var b_speed = 600
+var b_speed = 600
 
 func _ready():
 	set_meta("type", "enemy_bullet")

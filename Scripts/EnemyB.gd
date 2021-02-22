@@ -1,18 +1,22 @@
 extends Area2D
 
-export var hit_points = 20
 var fire_time = 0.0
 var player_node
+var new_bullet 
+export var hit_points = 10
 export var follow = false
 export var fire_rate = .25
 
 
 func _ready():
 	set_meta("type", "enemy")
+# warning-ignore:return_value_discarded
+	connect("area_entered", self, "_on_EnemyB_area_entered")
+	new_bullet = load("res://Scenes/EnemyBulletB.tscn")
 	if follow: player_node = get_node("../Player")
 
 func _process(_delta):
-	if player_node: look_at(player_node.position)
+	if player_node && follow: look_at(player_node.position)
 	shoot()
 
 
@@ -22,7 +26,6 @@ func shoot():
 		fire_time = get_time()
 
 func spawn_bullet():
-	var new_bullet = load("res://Scenes/EnemyBulletB.tscn")
 	
 	var bullet = new_bullet.instance()
 	bullet.set_position(self.position)

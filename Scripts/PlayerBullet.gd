@@ -3,6 +3,7 @@ extends Area2D
 export var bp_speed = 2000
 
 func _ready():
+	connect("area_entered", self, "_on_PlayerBullet_area_entered")
 	set_meta("type", "player_bullet")
 
 func _process(delta):

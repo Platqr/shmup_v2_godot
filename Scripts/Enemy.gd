@@ -1,9 +1,10 @@
 extends Area2D
 
-export var hit_points = 20
 var fire_time = 0.0
 var rot_sum = 0
 var dist_beet_b
+var new_bullet 
+export var hit_points = 10
 export var fire_rate = .2
 export var rot_speed = 5
 export var num_b_threads = 1
@@ -11,8 +12,11 @@ export var num_b_threads = 1
 
 func _ready():
 	set_meta("type", "enemy")
-	if num_b_threads >= 1: dist_beet_b = 360 / num_b_threads 
+	if num_b_threads >= 1:
+		dist_beet_b = 360 / num_b_threads
+		new_bullet = load("res://Scenes/EnemyBullet.tscn")
 	else: num_b_threads = 0
+	connect("area_entered", self, "_on_Enemy_area_entered")
 
 func _process(_delta):
 	shoot()
@@ -24,7 +28,6 @@ func shoot():
 		fire_time = get_time()
 
 func spawn_bullet():
-	var new_bullet = load("res://Scenes/EnemyBullet.tscn")
 	rot_sum += rot_speed
 	var bullet
 	
