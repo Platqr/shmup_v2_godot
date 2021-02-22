@@ -2,8 +2,6 @@ extends Area2D
 
 var b_speed = 250
 
-func _ready():
-	set_meta("type", "enemy_bullet")
 
 func _process(delta):
 	position += Vector2(0,1).rotated(rotation) * b_speed * delta

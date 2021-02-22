@@ -4,7 +4,6 @@ export var bp_speed = 2000
 
 func _ready():
 	connect("area_entered", self, "_on_PlayerBullet_area_entered")
-	set_meta("type", "player_bullet")
 
 func _process(delta):
 	position += Vector2(0,-1) * bp_speed * delta
@@ -14,5 +13,5 @@ func _process(delta):
 	
 	
 func _on_PlayerBullet_area_entered(area):
-	if area.get_meta("type") == "enemy":
+	if area.is_in_group("enemy"):
 		queue_free()

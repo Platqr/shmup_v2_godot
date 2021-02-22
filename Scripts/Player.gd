@@ -2,13 +2,13 @@ extends Area2D
 
 var fire_time = 0.0
 var new_p_bullet
+var canShoot = true
 export var fire_rate = .15
 export var move_speed = 350
 export var focus_speed = 150
 
 
 func _ready():
-	set_meta("type", "player")
 # warning-ignore:return_value_discarded
 	connect("area_entered", self, "_on_Player_area_entered")
 	new_p_bullet = load("res://Scenes/PlayerBullet.tscn")
@@ -26,8 +26,11 @@ func _process(delta):
 		velocity.y +=1
 	if Input.is_action_pressed("focus"):
 		m_speed = focus_speed
-	if Input.is_action_pressed("shoot"):
+	if Input.is_action_pressed("shoot") && canShoot:
 		Shoot_pb()
+		if $PlayerShSfx.is_playing() == false: $PlayerShSfx.play()
+	else:
+		$PlayerShSfx.stop()
 	
 	position += velocity * delta * m_speed
 	position.x = clamp(position.x, 202.5, 797.5)
@@ -49,5 +52,8 @@ func get_time():
 	
 	
 func _on_Player_area_entered(area):
-	if area.get_meta("type") == "enemy" || area.get_meta("type") == "enemy_bullet":
-		queue_free()
+	if area.is_in_group("enemy") || area.is_in_group("eBullet"):
+		$Collider.set_deferred("disabled", true)
+		canShoot = false
+		$PlayerDeadSfx.play()
+		hide()

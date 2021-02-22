@@ -3,21 +3,23 @@ extends Area2D
 var fire_time = 0.0
 var player_node
 var new_bullet 
+var shootOn = false
 export var hit_points = 10
-export var follow = false
+export var follow = true
 export var fire_rate = .25
 
 
 func _ready():
-	set_meta("type", "enemy")
 # warning-ignore:return_value_discarded
 	connect("area_entered", self, "_on_EnemyB_area_entered")
 	new_bullet = load("res://Scenes/EnemyBulletB.tscn")
 	if follow: player_node = get_node("../Player")
+	
+	shootOn = true
 
 func _process(_delta):
 	if player_node && follow: look_at(player_node.position)
-	shoot()
+	if shootOn: shoot()
 
 
 func shoot():
@@ -38,9 +40,16 @@ func get_time():
 func Damage():
 	hit_points = hit_points -1
 	if hit_points <= 0:
-		queue_free()
+		die()
 
+func die():
+	$CollisionShape2D.set_deferred("disabled", true)
+	hide()
+	shootOn = false
+	$DeadSfx.play()
+	yield($DeadSfx,"finished")
+	queue_free()
 
 func _on_EnemyB_area_entered(area):
-	if area.get_meta("type") == "player_bullet":
+	if area.is_in_group("pBullet"):
 		Damage()

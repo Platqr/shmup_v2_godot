@@ -6,7 +6,9 @@
 [sub_resource type="CircleShape2D" id=1]
 radius = 6.5
 
-[node name="EnemyBulletB" type="Area2D"]
+[node name="EnemyBulletB" type="Area2D" groups=[
+"eBullet",
+]]
 self_modulate = Color( 1, 1, 1, 0.623529 )
 script = ExtResource( 1 )
 __meta__ = {
