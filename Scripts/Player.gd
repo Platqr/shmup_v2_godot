@@ -1,17 +1,16 @@
 extends Area2D
 
 var fire_time = 0.0
-var new_p_bullet
-var canShoot = true
+var new_bullet
+var can_shoot = true
 export var fire_rate = .15
 export var move_speed = 350
 export var focus_speed = 150
 
 
 func _ready():
-# warning-ignore:return_value_discarded
 	connect("area_entered", self, "_on_Player_area_entered")
-	new_p_bullet = load("res://Scenes/PlayerBullet.tscn")
+	new_bullet = load("res://Scenes/PlayerBullet.tscn")
 
 func _process(delta):
 	var m_speed = move_speed
@@ -26,34 +25,34 @@ func _process(delta):
 		velocity.y +=1
 	if Input.is_action_pressed("focus"):
 		m_speed = focus_speed
-	if Input.is_action_pressed("shoot") && canShoot:
-		Shoot_pb()
+	if Input.is_action_pressed("shoot") && can_shoot:
+		_shoot()
 		if $PlayerShSfx.is_playing() == false: $PlayerShSfx.play()
 	else:
 		$PlayerShSfx.stop()
 	
-	position += velocity * delta * m_speed
-	position.x = clamp(position.x, 202.5, 797.5)
-	position.y = clamp(position.y, 56.5, 843.5)
+	position += velocity.normalized() * delta * m_speed
+	position.x = clamp(position.x, 191, 810)
+	position.y = clamp(position.y, 54, 850)
 	
 
-func spawn_p_bullet():
-	var p_bullet = new_p_bullet.instance()
-	p_bullet.set_position(self.position)
-	get_parent().add_child(p_bullet)
+func _spawn_bullet():
+	var bullet = new_bullet.instance()
+	bullet.set_position(self.position)
+	get_parent().add_child(bullet)
 
-func Shoot_pb():
-	if get_time() - fire_time >= fire_rate:
-		spawn_p_bullet()
-		fire_time = get_time()
+func _shoot():
+	if _get_time() - fire_time >= fire_rate:
+		_spawn_bullet()
+		fire_time = _get_time()
 	
-func get_time():
+func _get_time():
 	return OS.get_ticks_msec() / 1000.0
 	
 	
 func _on_Player_area_entered(area):
 	if area.is_in_group("enemy") || area.is_in_group("eBullet"):
 		$Collider.set_deferred("disabled", true)
-		canShoot = false
+		can_shoot = false
 		$PlayerDeadSfx.play()
 		hide()

@@ -1,13 +1,11 @@
-[gd_scene load_steps=9 format=2]
+[gd_scene load_steps=7 format=2]
 
 [ext_resource path="res://Scenes/Player.tscn" type="PackedScene" id=1]
-[ext_resource path="res://Sprites/Bg2.png" type="Texture" id=2]
-[ext_resource path="res://Sprites/blankTile.png" type="Texture" id=3]
+[ext_resource path="res://Scenes/ScrollingBG1.tscn" type="PackedScene" id=3]
 [ext_resource path="res://Sound/27(loop).wav" type="AudioStream" id=4]
 [ext_resource path="res://Sound/27(intro).wav" type="AudioStream" id=5]
-[ext_resource path="res://Scenes/Enemy.tscn" type="PackedScene" id=6]
+[ext_resource path="res://Sprites/frame.png" type="Texture" id=6]
 [ext_resource path="res://Scripts/MainScene.gd" type="Script" id=7]
-[ext_resource path="res://Scenes/EnemyB.tscn" type="PackedScene" id=8]
 
 [node name="MainScene" type="Node2D"]
 script = ExtResource( 7 )
@@ -21,20 +19,13 @@ stream = ExtResource( 5 )
 [node name="MusicLoop" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 4 )
 
-[node name="Background" type="Sprite" parent="."]
-visible = false
-position = Vector2( 807.453, 456.755 )
-scale = Vector2( 0.805821, 0.805821 )
-texture = ExtResource( 2 )
-__meta__ = {
-"_edit_lock_": true
-}
+[node name="ScrollingBG1" parent="." instance=ExtResource( 3 )]
 
-[node name="Playground" type="Sprite" parent="."]
-self_modulate = Color( 0.247059, 0.247059, 0.247059, 1 )
-position = Vector2( 500, 450 )
-scale = Vector2( 10, 13 )
-texture = ExtResource( 3 )
+[node name="Frame" type="Sprite" parent="."]
+self_modulate = Color( 0.12549, 0.164706, 0.196078, 1 )
+position = Vector2( 800, 450 )
+z_index = 1
+texture = ExtResource( 6 )
 __meta__ = {
 "_edit_lock_": true
 }
@@ -43,30 +34,3 @@ __meta__ = {
 position = Vector2( 500, 800 )
 fire_rate = 0.1
 focus_speed = 150
-
-[node name="Enemy" parent="." instance=ExtResource( 6 )]
-position = Vector2( 488.205, 250.334 )
-hit_points = 5
-num_b_threads = 5
-
-[node name="Enemy2" parent="." instance=ExtResource( 6 )]
-position = Vector2( 303.208, 151.108 )
-hit_points = 5
-num_b_threads = 5
-
-[node name="Enemy3" parent="." instance=ExtResource( 6 )]
-position = Vector2( 708.52, 368.059 )
-hit_points = 5
-num_b_threads = 5
-
-[node name="EnemyB" parent="." instance=ExtResource( 8 )]
-position = Vector2( 289.754, 398.331 )
-hit_points = 5
-
-[node name="EnemyB2" parent="." instance=ExtResource( 8 )]
-position = Vector2( 649.657, 280.606 )
-hit_points = 5
-
-[node name="EnemyB3" parent="." instance=ExtResource( 8 )]
-position = Vector2( 584.067, 105.7 )
-hit_points = 5

@@ -6,6 +6,7 @@
 [ext_resource path="res://Sound/pdead.wav" type="AudioStream" id=4]
 
 [sub_resource type="CircleShape2D" id=1]
+radius = 6.5
 
 [node name="Player" type="Area2D" groups=[
 "player",
@@ -25,7 +26,7 @@ texture = ExtResource( 2 )
 
 [node name="HeartSprite" type="Sprite" parent="."]
 self_modulate = Color( 1, 0.4, 0.4, 1 )
-scale = Vector2( 0.3, 0.3 )
+scale = Vector2( 0.2, 0.2 )
 texture = ExtResource( 2 )
 
 [node name="Collider" type="CollisionShape2D" parent="."]

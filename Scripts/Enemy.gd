@@ -4,31 +4,53 @@ var fire_time = 0.0
 var rot_sum = 0
 var dist_beet_b
 var new_bullet 
-var shootOn = false
-export var hit_points = 10
-export var fire_rate = .2
-export var rot_speed = 5
+var shoot_on = false
+var rot_speed = 7.5
+var fire_rate = .15
+var move_speed = 200
+var stop_pos = 100
+var stop_time = 10
+var exit_dir = Vector2(0,1)
+var get_out = false
+var stoped = false
+export var hit_points = 5
 export var num_b_threads = 1
 
 
 func _ready():
+	$Timer.set_wait_time(stop_time)
 	if num_b_threads >= 1:
 		dist_beet_b = 360 / num_b_threads
 		new_bullet = load("res://Scenes/EnemyBullet.tscn")
-	else: num_b_threads = 0
-# warning-ignore:return_value_discarded
+	else: num_b_threads = 1
 	connect("area_entered", self, "_on_Enemy_area_entered")
-	
-	shootOn=true
+	$Timer.connect("timeout", self, "_on_Timer_timeout")
 
-func _process(_delta):
-	if shootOn: shoot()
+func _process(delta):
+	if shoot_on: shoot()
+	_move(delta)
 
+func _move(delta):
+	if position.y <= stop_pos: position += Vector2(0,1) * move_speed * delta
+	elif !stoped:
+		stoped = true
+		shoot_on = true
+		$Timer.start()
+	if get_out: 
+		position += exit_dir.normalized() * move_speed * delta
+		if position.x >= 826:
+			queue_free()
+		if position.x <= 173:
+			queue_free()
+		if position.y >= 873:
+			queue_free()
+		if position.y <= 27:
+			queue_free()
 
 func shoot():
-	if get_time() - fire_time >= fire_rate:
+	if _get_time() - fire_time >= fire_rate:
 		spawn_bullet()
-		fire_time = get_time()
+		fire_time = _get_time()
 
 func spawn_bullet():
 	rot_sum += rot_speed
@@ -45,24 +67,27 @@ func spawn_bullet():
 			bullet.set_position(self.position)
 			bullet.set_rotation_degrees((360 - (dist_beet_b * (n+1))) + rot_sum)
 			get_parent().add_child(bullet)
-	
 
-func get_time():
+func _get_time():
 	return OS.get_ticks_msec() / 1000.0
 
-func damage():
+func _damage():
 	hit_points = hit_points -1
 	if hit_points <= 0:
-		die()
+		_die()
 
-func die():
+func _die():
 	$CollisionShape2D.set_deferred("disabled", true)
 	hide()
-	shootOn = false
+	shoot_on = false
 	$DeadSfx.play()
 	yield($DeadSfx,"finished")
 	queue_free()
 
 func _on_Enemy_area_entered(area):
 	if area.is_in_group("pBullet"):
-		damage()
+		_damage()
+
+func _on_Timer_timeout():
+	shoot_on = false
+	get_out = true

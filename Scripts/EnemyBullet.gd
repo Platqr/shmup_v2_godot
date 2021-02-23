@@ -1,16 +1,17 @@
 extends Area2D
 
-var b_speed = 250
+var speed = 250
 
 
 func _process(delta):
-	position += Vector2(0,1).rotated(rotation) * b_speed * delta
+	position += Vector2(0,1).rotated(rotation) * speed * delta
 	
-	if get_global_transform_with_canvas().origin.x >= 812:
+	if position.x >= 826:
 		queue_free()
-	if get_global_transform_with_canvas().origin.x <= 185:
+	if position.x <= 173:
 		queue_free()
-	if get_global_transform_with_canvas().origin.y >= 857:
+	if position.y >= 873:
 		queue_free()
-	if get_global_transform_with_canvas().origin.y <= 45:
+	if position.y <= 27:
 		queue_free()
+	
