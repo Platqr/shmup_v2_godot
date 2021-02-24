@@ -1,12 +1,12 @@
 [gd_scene load_steps=4 format=2]
 
-[ext_resource path="res://Scripts/EnemyBulletB.gd" type="Script" id=1]
-[ext_resource path="res://Sprites/blankTile.png" type="Texture" id=2]
+[ext_resource path="res://Scripts/EnemyBullet.gd" type="Script" id=1]
+[ext_resource path="res://Sprites/Blank_Tile.png" type="Texture" id=2]
 
 [sub_resource type="CircleShape2D" id=1]
 radius = 6.5
 
-[node name="EnemyBulletB" type="Area2D" groups=[
+[node name="EnemyBullet" type="Area2D" groups=[
 "eBullet",
 ]]
 self_modulate = Color( 1, 1, 1, 0.623529 )

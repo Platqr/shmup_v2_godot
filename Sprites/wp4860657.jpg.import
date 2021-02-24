@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/Frame.png-6c1770a8db3ad624486bbc437ed51692.stex"
+path="res://.import/wp4860657.jpg-5fce07ba406b8def8ce636fac3100aa4.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Sprites/Frame.png"
-dest_files=[ "res://.import/Frame.png-6c1770a8db3ad624486bbc437ed51692.stex" ]
+source_file="res://Sprites/wp4860657.jpg"
+dest_files=[ "res://.import/wp4860657.jpg-5fce07ba406b8def8ce636fac3100aa4.stex" ]
 
 [params]
 

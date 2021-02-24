@@ -1,9 +1,10 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=7 format=2]
 
 [ext_resource path="res://Scripts/Player.gd" type="Script" id=1]
-[ext_resource path="res://Sprites/blankTile.png" type="Texture" id=2]
+[ext_resource path="res://Sprites/Player_Sprite.png" type="Texture" id=2]
 [ext_resource path="res://Sound/plst00.wav" type="AudioStream" id=3]
 [ext_resource path="res://Sound/pdead.wav" type="AudioStream" id=4]
+[ext_resource path="res://Sprites/Heart.png" type="Texture" id=5]
 
 [sub_resource type="CircleShape2D" id=1]
 radius = 6.5
@@ -17,17 +18,16 @@ __meta__ = {
 "_edit_group_": true,
 "_editor_description_": "			1"
 }
-focus_speed = 250
 
 [node name="PlayerSprite" type="Sprite" parent="."]
 self_modulate = Color( 0.478431, 0.827451, 1, 1 )
-scale = Vector2( 0.5, 0.85 )
+scale = Vector2( 0.08, 0.08 )
 texture = ExtResource( 2 )
 
 [node name="HeartSprite" type="Sprite" parent="."]
 self_modulate = Color( 1, 0.4, 0.4, 1 )
-scale = Vector2( 0.2, 0.2 )
-texture = ExtResource( 2 )
+scale = Vector2( 0.014, 0.014 )
+texture = ExtResource( 5 )
 
 [node name="Collider" type="CollisionShape2D" parent="."]
 shape = SubResource( 1 )
@@ -37,5 +37,10 @@ stream = ExtResource( 3 )
 volume_db = -8.0
 
 [node name="PlayerDeadSfx" type="AudioStreamPlayer" parent="."]
+pause_mode = 2
 stream = ExtResource( 4 )
 volume_db = -8.0
+
+[node name="InvincibleTimer" type="Timer" parent="."]
+wait_time = 2.0
+one_shot = true

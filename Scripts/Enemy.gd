@@ -21,7 +21,7 @@ func _ready():
 	$Timer.set_wait_time(stop_time)
 	if num_b_threads >= 1:
 		dist_beet_b = 360 / num_b_threads
-		new_bullet = load("res://Scenes/EnemyBullet.tscn")
+		new_bullet = load("res://Scenes/Bullets/EnemyBullet.tscn")
 	else: num_b_threads = 1
 	connect("area_entered", self, "_on_Enemy_area_entered")
 	$Timer.connect("timeout", self, "_on_Timer_timeout")
@@ -31,13 +31,13 @@ func _process(delta):
 	_move(delta)
 
 func _move(delta):
-	if position.y <= stop_pos: position += Vector2(0,1) * move_speed * delta
+	if position.y <= stop_pos && !stoped: position += Vector2(0,1) * move_speed * delta
 	elif !stoped:
 		stoped = true
 		shoot_on = true
 		$Timer.start()
 	if get_out: 
-		position += exit_dir.normalized() * move_speed * delta
+		position += exit_dir * move_speed * delta
 		if position.x >= 826:
 			queue_free()
 		if position.x <= 173:

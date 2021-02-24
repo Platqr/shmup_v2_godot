@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/blankTile.png-20fd903020934d42c760fd5d2d9f4802.stex"
+path="res://.import/logo-social.png-dcae522574d8ad1ffd1744c967009728.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Sprites/blankTile.png"
-dest_files=[ "res://.import/blankTile.png-20fd903020934d42c760fd5d2d9f4802.stex" ]
+source_file="res://Sprites/logo-social.png"
+dest_files=[ "res://.import/logo-social.png-dcae522574d8ad1ffd1744c967009728.stex" ]
 
 [params]
 

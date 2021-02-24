@@ -17,7 +17,7 @@ export var fire_rate = .25
 func _ready():
 	$Timer.set_wait_time(stop_time)
 	connect("area_entered", self, "_on_EnemyB_area_entered")
-	new_bullet = load("res://Scenes/EnemyBulletB.tscn")
+	new_bullet = load("res://Scenes/Bullets/EnemyBulletB.tscn")
 	player_node = get_node("../Player")
 	$Timer.connect("timeout", self, "_on_Timer_timeout")
 
@@ -27,7 +27,7 @@ func _process(delta):
 	_move(delta)
 
 func _move(delta):
-	if position.y <= stop_pos: position += Vector2(0,1) * move_speed * delta
+	if position.y <= stop_pos && !stoped: position += Vector2(0,1) * move_speed * delta
 	elif !stoped:
 		stoped = true
 		shoot_on = true
